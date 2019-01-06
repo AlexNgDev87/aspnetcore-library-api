@@ -1,7 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-using LibraryApi.Data.Model;
+using LibraryApi.Data.Models;
 
 namespace LibraryApi.Data
 {

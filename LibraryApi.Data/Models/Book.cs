@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LibraryApi.Data.Model
+namespace LibraryApi.Data.Models
 {
     public class Book
     {

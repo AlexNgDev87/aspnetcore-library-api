@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LibraryApi.Data.Model
+namespace LibraryApi.Data.Models
 {
     public class Author
     {
