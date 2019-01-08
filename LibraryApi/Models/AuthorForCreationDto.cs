@@ -11,5 +11,9 @@ namespace LibraryApi.Models
         public string LastName { get; set; }
         public DateTimeOffset DateOfBirth { get; set; }
         public string Genre { get; set; }
+
+        // the instantiation is to avoid null reference exception
+        public ICollection<BookForCreationDto> Books { get; set; }
+        = new List<BookForCreationDto>();
     }
 }

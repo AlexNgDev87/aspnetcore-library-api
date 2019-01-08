@@ -37,7 +37,9 @@ namespace LibraryApi
             services.AddMvc(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
+                // XmlDataContractSerializer support formatting datetimeoffset
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var connectionString = Configuration["connectionStrings:libraryDBConnectionString"];
@@ -76,6 +78,8 @@ namespace LibraryApi
 
                 cfg.CreateMap<Book, BookDto>();
                 cfg.CreateMap<BookForCreationDto, Book>();
+
+                cfg.CreateMap<BookForUpdateDto, Book>();
 
             });
 

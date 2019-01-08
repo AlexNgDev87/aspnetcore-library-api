@@ -2,6 +2,7 @@ using AutoMapper;
 using LibraryApi.Data.Models;
 using LibraryApi.Data.Repository;
 using LibraryApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,35 @@ namespace LibraryApi.Controllers
             var authorToReturn = Mapper.Map<AuthorDto>(authorEntity);
 
             return CreatedAtRoute("GetAuthor", new { id = authorToReturn.Id }, authorToReturn);
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult BlockAuthorCreation(Guid id)
+        {
+            if (_repository.AuthorExists(id))
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
+            }
+
+            return NotFound();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAuthor(Guid id)
+        {
+            // we don't use AuthorExists here because we don't need to call the repo twice since will use the same model context
+            var authorFromRepo = _repository.GetAuthor(id);
+            if (authorFromRepo == null)
+                return NotFound();
+
+            _repository.DeleteAuthor(authorFromRepo);
+
+            if (!_repository.Save())
+            {
+                throw new Exception($"Deleting author {id} failed on save.");
+            }
+
+            return NoContent();
         }
     }
 }
